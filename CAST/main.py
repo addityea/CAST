@@ -143,9 +143,9 @@ def CAST_STACK(coords_raw,embed_dict,output_path,graph_list,params_dist= None,tm
     # Affine results
     affine_reg_params([i.cpu().numpy() for i in it_theta],similarity_score,params_dist.iterations,output_path,prefix=prefix_t)# if mid_visual else None
     if if_embed_sub:
-        embed_stack_t = np.row_stack((embed_dict[query_sample].cpu().detach().numpy()[sub_node_idxs[query_sample]],embed_dict[ref_sample].cpu().detach().numpy()[sub_node_idxs[ref_sample]]))
+        embed_stack_t = np.vstack((embed_dict[query_sample].cpu().detach().numpy()[sub_node_idxs[query_sample]],embed_dict[ref_sample].cpu().detach().numpy()[sub_node_idxs[ref_sample]]))
     else:
-        embed_stack_t = np.row_stack((embed_dict[query_sample].cpu().detach().numpy(),embed_dict[ref_sample].cpu().detach().numpy()))
+        embed_stack_t = np.vstack((embed_dict[query_sample].cpu().detach().numpy(),embed_dict[ref_sample].cpu().detach().numpy()))
     coords_query_r2 = affine_trans_t(params_dist.theta_r2,coords_query_r1)
     register_result(coords_query_r2.cpu().detach().numpy(),
                     coords_ref.cpu().detach().numpy(),
